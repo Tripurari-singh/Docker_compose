@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc -b",
     "start": "node dist/index.js",
-    "dev": "tsc -b && node dist/index.js"
+    "dev": "tsc -b && node dist/index.js",
+    "docker:run" : "docker run --network user_project -e DATABASE_URL=postgresql://myuser:mypassword@postgres:5432/mydatabase -p 3000:3000 docker-compose-image"
   },
   "keywords": [],
   "author": "",
