@@ -28,6 +28,13 @@
 
 
 ### Docker Installation
+ - Install Docker
+ - Start postgres
+            ```docker run -d --name postgres-db -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydatabase -p 5432:5432 postgres:15```
+ - Build the Image
+            ``` docker build -t Docker_composeImage ```
+ - Start the Image
+            ``` docker run Docker_ComposeImage ```
 
 
 
