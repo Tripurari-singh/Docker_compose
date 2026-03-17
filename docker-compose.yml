@@ -1,54 +1,60 @@
-# version: "3.8"
-
-# services:
-#   app:
-#        build: .
-#        depends_on: 
-#            postgres_db:
-#               condition: service_healthy
-#        environment:
-#          - DATABASE_URL=postgresql://myuser:mypassword@postgres_1:5432/mydatabase
-#        ports:
-#          - 3000:3000
-
-
-#   postgres_db:
-#        image: postgres:latest
-#        ports:
-#         - 5433:5432
-#        environment:
-#          POSTGRES_PASSWORD: mypassword
-#          POSTGRES_USER: myuser
-#          POSTGRES_DB: mydatabase
+version: "3.8"
 
 services:
   app:
-    build: .
-    depends_on:
-      postgres_db:
-        condition: service_healthy
-    environment:
-      - DATABASE_URL=postgresql://myuser:mypassword@postgres_db:5432/mydatabase
-#                                                   ↑
-#                                        must match service name below!
-    ports:
-      - "3000:3000"
+       build: .
+       depends_on: 
+           postgres_db:
+              condition: service_healthy
+       environment:
+         - DATABASE_URL=postgresql://myuser:mypassword@postgres_db:5432/mydatabase
+       ports:
+         - 3000:3000
+
 
   postgres_db:
-    image: postgres:15
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+       image: postgres:latest
+       ports:
+        - 5433:5432
+       environment:
+         POSTGRES_PASSWORD: mypassword
+         POSTGRES_USER: myuser
+         POSTGRES_DB: mydatabase
 
-volumes:
-  postgres_data:
+
+         # Health Check Is Very Important , dii not get composed without it .
+       healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+# services:
+#   app:
+#     build: .
+#     depends_on:
+#       postgres_db:
+#         condition: service_healthy
+#     environment:
+#       - DATABASE_URL=postgresql://myuser:mypassword@postgres_db:5432/mydatabase
+#     ports:
+#       - "3000:3000"
+
+#   postgres_db:
+#     image: postgres:15
+#     ports:
+#       - "5433:5432"
+#     environment:
+#       POSTGRES_USER: myuser
+#       POSTGRES_PASSWORD: mypassword
+#       POSTGRES_DB: mydatabase
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 5
+
+# volumes:
+#   postgres_data:
