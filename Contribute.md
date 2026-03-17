@@ -32,11 +32,11 @@
  - create a Network
            ```docker network create user_project
  - Start postgres
-            ```docker run --network user_project -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydatabase -p 5432:5432 postgres:15```
+            ```docker run --network user_project -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydatabase -p 5432:5432 postgres:latest```
  - Build the Image
-            ``` docker build network=host -t docker-compose ```
+            ``` docker build -t docker-compose ```
  - Start the Image
-            ``` docker run --network user_project -e DATABASE_URL=postgresql://myuser:mypassword@postgres:5432/mydatabase -p 3000:3000 docker-compose-image ```
+            ``` docker run --network user_project -e DATABASE_URL=postgresql://myuser:mypassword@postgres_1:5432/mydatabase -p 3000:3000 docker-compose-image ```
 
 
 ### Docker Compose Installation
